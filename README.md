@@ -9,7 +9,7 @@ This web application integrates with HubSpot and Clockify to provide a summarize
 3. It computes the average time spent and variations from the contracted hours.
 4. The data is then presented in a summarized dashboard with colors indicating if the time spent exceeds the contracted hours.
 
-##Deployment:
+## Deployment:
 Prerequisites: Ensure you have Python 3.7 installed.
 
 1. Clone the repository:
