@@ -21,14 +21,14 @@ Prerequisites: Ensure you have Python 3.7 installed.
 2. Configuration
   Configuration is done through JSON files for each API:
 
-2.1 HubSpot Configuration:
+HubSpot Configuration:
   Create a file named `hubspot_config.json` inside the `config` folder:
   ```json
   {
       "API_KEY": "YOUR_HUBSPOT_API_KEY"
   }
   ```
-2.2 Clockify Configuration:
+Clockify Configuration:
   Create a file named `clockify_config.json` inside the `config` folder:
   ```json
   {
