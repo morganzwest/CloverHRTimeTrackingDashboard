@@ -1,0 +1,66 @@
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/css/bootstrap-theme.min.css" integrity="sha384-6pzBo3FDv/PJ8r2KRkGHifhEocL+1X2rVCTTkUfGk7/0pbek5mMa1upzvWbrUbOZ" crossorigin="anonymous">
+
+<link rel="icon" type="image/x-icon" href="/static/images/Clover.ico">
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
+
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        .red {
+            background-color: rgb(255, 191, 191);
+        }
+        .green {
+            background-color: rgb(174, 255, 174);
+        }
+    </style>
+    
+    <title>Risk Factors</title>
+</head>
+<body>
+    <h1>Risk Factors as of {{ month_name }} {{ year }}</h1>
+    <table class="table table-striped" border="1">
+        <thead>
+            <tr>
+                <th scope="col">Code</th>
+                <th scope="col">Name</th>
+                <th scope="col">Risk Factor</th>
+                <th scope="col">Fee</th>
+                <th scope="col">Safe Revenue</th>
+                <th scope="col">Percentage of Time Used</th>
+                <th scope="col">RAG</th>
+                <th scope="col">Months as Client</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for entry in summary_data %}
+            <tr>
+                <td>{{ entry.code }}</td>
+                <td>{{ entry.name }}</td>
+                <td class="{{ 'red' if entry.risk_factor|float < Q1 else 'green' if entry.risk_factor|float > Q3 else '' }}">
+                    {{ "%.2f"|format(entry.risk_factor|float) }}
+                </td>
+                <td>{{ "£%.2f"|format(entry.monthly_fee|float) }}</td>
+                <td>{{ "£%.2f"|format(entry.safe_revenue|float) }}</td>
+                <td>
+                    {% if entry.usage > 100 %}
+                        100+
+                    {% else %}
+                        {{ "%.2f"|format(entry.usage) }}
+                    {% endif %}
+                </td>
+                <td>{{ entry.rag }}</td>
+                <td>{{ entry.months_as_client }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>
+
