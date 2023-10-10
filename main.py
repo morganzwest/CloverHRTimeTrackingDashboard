@@ -148,7 +148,7 @@ def calculate_client_risk_factor(client, average_time, today):
         months_since_start = 0
 
     # Risk Factor calculation
-    risk_factor = rag_value + (usage_percentage / 3) + months_since_start
+    risk_factor = 100 - (rag_value + (usage_percentage / 3) + months_since_start)
 
     print("RISK:",client_code,rag_value,usage_percentage,months_since_start,risk_factor)
     
@@ -227,7 +227,8 @@ def risk():
         risk_factor = float(risk_factor)
         monthly_fee = float(monthly_fee)
 
-        merged_data.append({
+        if contracted_hours > 0:
+            merged_data.append({
             "code": client_code,
             "name": name,
             "risk_factor": risk_factor,
@@ -235,8 +236,9 @@ def risk():
             "usage": usage_percentage,
             "rag": rag,
             "months_as_client": months_as_client,
-            "safe_revenue": (risk_factor / 100) * monthly_fee
-        })
+            "safe_revenue": monthly_fee - ((risk_factor / 100) * monthly_fee),
+            "risk_revenue": (risk_factor / 100) * monthly_fee
+        })    
 
     # Adjusting the month to display in the summary
     month_to_display = today.month - 1
@@ -346,7 +348,7 @@ def summary():
             months_since_start = 0
 
         # Risk Factor calculation
-        risk_factor = rag_value + (usage_percentage / 3) + months_since_start
+        risk_factor = 100 - (rag_value + (usage_percentage / 3) + months_since_start)
         print("RISK:",client_code,rag_value,usage_percentage,months_since_start,risk_factor)
         risk_factors[client_code] = risk_factor
         
