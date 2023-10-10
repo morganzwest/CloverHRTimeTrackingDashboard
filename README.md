@@ -1,5 +1,5 @@
 
-# Clover HR: Time Tracking Dashboard
+# Clover HR: Time Tracking and Risk Dashboard
 ## Description:
 This web application integrates with HubSpot and Clockify to provide a summarized dashboard that showcases the time spent on various projects over the past six months. It highlights variations in time spent compared to contracted hours, allowing users to quickly understand how projects are progressing.
 
