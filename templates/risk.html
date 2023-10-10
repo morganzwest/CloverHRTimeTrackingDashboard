@@ -23,7 +23,7 @@
     
     <title>Risk Factors</title>
 </head>
-<body>
+<body style="padding: 1%;">
     <h1>Risk Factors as of {{ month_name }} {{ year }}</h1>
     <table class="table table-striped" border="1">
         <thead>
@@ -33,6 +33,7 @@
                 <th scope="col">Risk Factor</th>
                 <th scope="col">Fee</th>
                 <th scope="col">Safe Revenue</th>
+                <th scope="col">Risk Revenue</th>
                 <th scope="col">Percentage of Time Used</th>
                 <th scope="col">RAG</th>
                 <th scope="col">Months as Client</th>
@@ -43,11 +44,12 @@
             <tr>
                 <td>{{ entry.code }}</td>
                 <td>{{ entry.name }}</td>
-                <td class="{{ 'red' if entry.risk_factor|float < Q1 else 'green' if entry.risk_factor|float > Q3 else '' }}">
+                <td class="{{ 'green' if entry.risk_factor|float < Q1 else 'red' if entry.risk_factor|float > Q3 else '' }}">
                     {{ "%.2f"|format(entry.risk_factor|float) }}
                 </td>
                 <td>{{ "£%.2f"|format(entry.monthly_fee|float) }}</td>
                 <td>{{ "£%.2f"|format(entry.safe_revenue|float) }}</td>
+                <td>{{ "£%.2f"|format(entry.risk_revenue|float) }}</td>
                 <td>
                     {% if entry.usage > 100 %}
                         100+
